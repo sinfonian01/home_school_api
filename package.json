@@ -1,0 +1,19 @@
+{
+  "name": "home_school_api",
+  "version": "1.0.0",
+  "description": "nodejs api for home school tracking application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sinfonian01/home_school_api.git"
+  },
+  "author": "Jason Miles",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sinfonian01/home_school_api/issues"
+  },
+  "homepage": "https://github.com/sinfonian01/home_school_api#readme"
+}
