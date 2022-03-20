@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const User = require('../model/User');
+const jwt = require('jsonwebtoken');
 
 router.post('/register', async (req, res) => {
     const body  = req.body;
@@ -30,8 +31,25 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.post('/login', (req, res) => {
-    res.send('Login');
+router.post('/login', async (req, res) => {
+    const body = req.body;
+    //find user in database based on email provided
+    const user = await User.findOne({email: body.email});
+    if(user){
+        //does the password match the user?
+        const validPassword = await bcrypt.compare(body.password, user.password);
+        if(validPassword){
+            //Create and assign token
+            const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET);
+            res.header('auth_token', token);
+            return res.status(200).send(token);
+            
+        } else {
+            return res.status(400).json({error: "Invalid Password"});
+        }
+    } else {
+        return res.send(401).json({error: "User does not exist"});
+    }
 });
 
 module.exports = router;
