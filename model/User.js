@@ -31,6 +31,7 @@ const userSchema = mongoose.Schema({
     }
 });
 
+//validate password length
 userSchema.path('password').validate(function(v){
     return v && v.length >= 8;
 }, "Password must be at least 8 characters in length");
