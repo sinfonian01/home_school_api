@@ -40,7 +40,7 @@ router.post('/login', async (req, res) => {
         const validPassword = await bcrypt.compare(body.password, user.password);
         if(validPassword){
             //Create and assign token
-            const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET);
+            const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
             res.header('auth_token', token);
             return res.status(200).send(token);
             
